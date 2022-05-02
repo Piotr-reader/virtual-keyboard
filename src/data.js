@@ -16,12 +16,12 @@ let controlBtnArr = [
   "&#5123",
   "&#5125",
 ];
-const en_alphabet = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
+let en_alphabet = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
 const en_num = ["`", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "="];
 const en_symb = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "="];
 const en_num_ext = ["[", "]", "\\", ";", "'", ",", ".", "/"];
 const en_symb_ext = ["{", "}", "|", ":", '"', "<", ">", "?"];
-const ru_alphabet = [
+let ru_alphabet = [
   "й",
   "ц",
   "у",
@@ -60,19 +60,22 @@ const ru_symb = ["Ё", "!", '"', "№", ";", "%", ":", "?", "*", "(", ")", "-", 
 const ru_num_ext = ["ю", "."];
 const ru_symb_ext = ["Ю", ","];
 
-let alphabet_alphabet = en_alphabet;
-let alphabet_num = en_num;
-let alphabet_symb = en_symb;
-let alphabet_num_ext = en_num_ext;
-let alphabet_symb_ext = en_symb_ext;
+// let alphabet_alphabet = en_alphabet;
+// let alphabet_num = en_num;
+// let alphabet_symb = en_symb;
+// let alphabet_num_ext = en_num_ext;
+// let alphabet_symb_ext = en_symb_ext;
 
 export default {
   controlBtnArr,
+  en_symb,
+  en_num_ext,
   en_alphabet,
+  en_symb_ext,
   ru_alphabet,
-  alphabet_alphabet,
-  alphabet_num,
-  alphabet_symb,
-  alphabet_num_ext,
-  alphabet_symb_ext,
+  en_num,
+  ru_num,
+  ru_symb,
+  ru_num_ext,
+  ru_symb_ext,
 };
