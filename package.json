@@ -26,5 +26,13 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Piotr-reader/virtual-keyboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Piotr-reader/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/Piotr-reader/virtual-keyboard#readme"
 }
