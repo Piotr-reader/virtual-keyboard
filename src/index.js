@@ -49,15 +49,19 @@ let allLi = ulContainer.children;
       break;
     case "Shift<span>Right</span>":
       btn.classList.add("shift_right");
-
       break;
     case "Shift<span>Left</span>":
       btn.classList.add("shift_left");
-
       break;
     case "Ctrl":
       btn.classList.add("ctrl");
       btn.classList.add("dbl_btn");
+      break;
+    case "<span>Space</span>":
+      btn.classList.add("space");
+      break;
+    case "Del":
+      btn.classList.add("delete_cl");
       break;
     default:
       break;
@@ -71,6 +75,8 @@ const btnCtrl = document.querySelector(".ctrl");
 const btnAltLeft = document.querySelector(".alt_left");
 const btnAltRight = document.querySelector(".alt_right");
 const textAreaText = document.querySelector(".text_write");
+const btnSpace = document.querySelector(".space");
+const btnDelete = document.querySelector(".delete_cl");
 
 // create alphabet Russian
 const changeLang = () => {
@@ -188,61 +194,84 @@ const removeActive = () => {
 };
 // textareaText
 const controlsBtnText = (e) => {
-  console.log(e.target.textContent);
-  if (e.target.textContent === "Backspace") {
-    if (textAreaText.selectionEnd >= 1) {
-      let pointer = textAreaText.selectionEnd - 1;
-      let arr = textAreaText.value.split("");
-      arr.splice(textAreaText.selectionEnd - 1, 1);
-      textAreaText.value = arr.join("");
-      textAreaText.setSelectionRange(pointer, pointer);
-    }
-  }
-  if (e.target.textContent === "Del") {
-    if (textAreaText.selectionEnd >= 0) {
-      let pointer = textAreaText.selectionEnd;
-      let arr = textAreaText.value.split("");
-      arr.splice(textAreaText.selectionEnd, 1);
-      textAreaText.value = arr.join("");
-      textAreaText.setSelectionRange(pointer, pointer);
-    }
-  }
-  if (e.target.textContent === "Space") {
-    textAreaText.value += " ";
-  }
-  if (e.target.textContent === "Enter") {
-    textAreaText.value += "\n";
-  }
-  if (e.target.textContent === "Tab") {
-    textAreaText.value += "    ";
-  }
-  if (e.target.textContent === "ᐊ") {
-    if (textAreaText.selectionEnd > 0) {
-      textAreaText.selectionEnd -= 1;
-    }
-  }
-  if (e.target.textContent === "ᐅ") {
-    textAreaText.selectionStart += 1;
-  }
-  if (e.target.textContent === "ᐁ") {
-    let arr = textAreaText.value.split("");
-    let pointer = textAreaText.selectionEnd;
-    arr.map((item, index) => {
-      if (item === "\n") {
-        textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
+  switch (e.target.textContent) {
+    case "Backspace":
+      if (textAreaText.selectionEnd >= 1) {
+        let pointer = textAreaText.selectionEnd - 1;
+        let arr = textAreaText.value.split("");
+        arr.splice(textAreaText.selectionEnd - 1, 1);
+        textAreaText.value = arr.join("");
+        textAreaText.setSelectionRange(pointer, pointer);
       }
-    });
-  }
-  if (e.target.textContent === "ᐃ") {
-    let arr = textAreaText.value.split("");
-    let pointer = textAreaText.selectionEnd;
-    arr.map((item, index) => {
-      if (item === "\n") {
-        textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
-        console.log(index + 1);
-        console.log(pointer);
+      break;
+    case "Del":
+      if (textAreaText.selectionEnd >= 0) {
+        let pointer = textAreaText.selectionEnd;
+        let arr = textAreaText.value.split("");
+        arr.splice(textAreaText.selectionEnd, 1);
+        textAreaText.value = arr.join("");
+        textAreaText.setSelectionRange(pointer, pointer);
       }
-    });
+      break;
+    case "Space":
+      let itemSpace = " ";
+      let arrSpace = textAreaText.value.split("");
+      let positionCursorSpace = textAreaText.selectionEnd;
+      arrSpace.splice(textAreaText.selectionEnd, 0, itemSpace);
+      textAreaText.value = arrSpace.join("");
+      textAreaText.selectionEnd = positionCursorSpace + 1;
+      break;
+    case "Enter":
+      let itemEnter = "\n";
+      let arrEnter = textAreaText.value.split("");
+      let positionCursorEnter = textAreaText.selectionEnd;
+      arrEnter.splice(textAreaText.selectionEnd, 0, itemEnter);
+      textAreaText.value = arrEnter.join("");
+      textAreaText.selectionEnd = positionCursorEnter - 10;
+      textAreaText.value += "\n";
+      break;
+    case "Tab":
+      let item = "    ";
+      let arrTab = textAreaText.value.split("");
+      let positionCursor = textAreaText.selectionEnd;
+      arrTab.splice(textAreaText.selectionEnd, 0, item);
+      textAreaText.value = arrTab.join("");
+      textAreaText.selectionEnd = positionCursor + 4;
+      break;
+    case "ᐊ":
+      if (textAreaText.selectionEnd > 0) {
+        textAreaText.selectionEnd -= 1;
+      }
+      break;
+    case "ᐅ":
+      textAreaText.selectionStart += 1;
+      break;
+    case "ᐁ":
+      {
+        let arr = textAreaText.value.split("");
+        let pointer = textAreaText.selectionEnd;
+        arr.map((item, index) => {
+          if (item === "\n") {
+            textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
+          }
+        });
+      }
+      break;
+    case "ᐃ":
+      {
+        let arr = textAreaText.value.split("");
+        let pointer = textAreaText.selectionEnd;
+        arr.map((item, index) => {
+          if (item === "\n") {
+            textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
+            console.log(index + 1);
+            console.log(pointer);
+          }
+        });
+      }
+      break;
+    default:
+      break;
   }
 };
 [...allLi].forEach((btn) => {
@@ -255,9 +284,97 @@ const controlsBtnText = (e) => {
     textAreaText.focus();
   });
 });
-
-// document.addEventListener("keydown", keyDown);
-// document.addEventListener("keyup", keyUp);
+// keyboards
+const removeActiveKeyboard = () => {
+  if (btnCtrl.classList.contains("active") && (btnAltLeft.classList.contains("active") || btnAltRight.classList.contains("active"))) {
+    setTimeout(() => {
+      changeLang();
+      btnAltRight.classList.remove("to_upper_case");
+      btnAltRight.classList.remove("active");
+      btnAltLeft.classList.remove("to_upper_case");
+      btnAltLeft.classList.remove("active");
+      btnCtrl.classList.remove("to_upper_case");
+      btnCtrl.classList.remove("active");
+    }, 100);
+  }
+};
+const keyDown = (e) => {
+  textAreaText.focus();
+  [...allLi].forEach((btn) => {
+    if (!(e.code == "CapsLock" || e.code == "ControlLeft" || e.code == "AltLeft" || e.code == "AltRight")) {
+      if (e.key === btn.innerHTML) {
+        btn.classList.add("to_upper_case");
+      }
+      if (e.key === " ") {
+        btnSpace.classList.add("to_upper_case");
+      }
+      if (e.key === "Delete") {
+        btnDelete.classList.add("to_upper_case");
+      }
+    }
+  });
+  if (e.code == "ShiftLeft" || e.code == "ShiftRight") {
+    if (e.code == "ShiftLeft") {
+      btnShiftLeft.classList.add("to_upper_case");
+    } else {
+      btnShiftRight.classList.add("to_upper_case");
+    }
+    if (btnCapslock.classList.contains("active")) {
+      hasupper(e);
+    } else {
+      alphabet = alphabet_symb.concat(alphabet_toUppercase).concat(alphabet_symb_ext);
+      updateAphabet();
+    }
+  }
+  if (e.code == "CapsLock") {
+    btnCapslock.classList.toggle("to_upper_case");
+    btnCapslock.classList.toggle("active");
+    shiftUp(e);
+  }
+  if (e.code == "ControlLeft") {
+    btnCtrl.classList.toggle("to_upper_case");
+    btnCtrl.classList.toggle("active");
+    removeActiveKeyboard();
+  }
+  if (e.code == "AltLeft") {
+    e.preventDefault();
+    btnAltLeft.classList.toggle("to_upper_case");
+    btnAltLeft.classList.toggle("active");
+    btnAltRight.classList.remove("to_upper_case");
+    btnAltRight.classList.remove("active");
+    removeActiveKeyboard();
+  }
+  if (e.code == "AltRight") {
+    e.preventDefault();
+    btnAltRight.classList.toggle("to_upper_case");
+    btnAltRight.classList.toggle("active");
+    btnAltLeft.classList.remove("to_upper_case");
+    btnAltLeft.classList.remove("active");
+    removeActiveKeyboard();
+  }
+  if (e.code == "Tab") {
+    e.preventDefault();
+    textAreaText.value += "    ";
+  }
+};
+const keyUp = (e) => {
+  if (e.code == "ShiftLeft" || e.code == "ShiftRight") {
+    btnShiftRight.classList.remove("to_upper_case");
+    btnShiftLeft.classList.remove("to_upper_case");
+    if (btnCapslock.classList.contains("active")) {
+      shiftUp(e);
+    } else {
+      shiftDown(e);
+    }
+  }
+  [...allLi].forEach((btn) => {
+    if (!(e.key == "CapsLock" || e.key == "Control" || e.key == "Alt")) {
+      btn.classList.remove("to_upper_case");
+    }
+  });
+};
+document.addEventListener("keydown", keyDown);
+document.addEventListener("keyup", keyUp);
 btnCapslock.addEventListener("click", capsLock);
 btnShiftLeft.addEventListener("mousedown", shiftDown);
 btnShiftLeft.addEventListener("mouseup", shiftUp);
