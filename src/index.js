@@ -64,7 +64,6 @@ let allLi = ulContainer.children;
   }
 });
 
-const gridContainer = document.querySelector(".grid_container");
 const btnShiftLeft = document.querySelector(".shift_left");
 const btnShiftRight = document.querySelector(".shift_right");
 const btnCapslock = document.querySelector(".caps_lock");
@@ -187,11 +186,75 @@ const removeActive = () => {
     changeLang();
   }
 };
-const removeActiveKeyboard = () => {
-  if (btnCtrl.classList.contains("active") && btnAltLeft.classList.contains("active")) {
-    changeLang();
+// textareaText
+const controlsBtnText = (e) => {
+  console.log(e.target.textContent);
+  if (e.target.textContent === "Backspace") {
+    if (textAreaText.selectionEnd >= 1) {
+      let pointer = textAreaText.selectionEnd - 1;
+      let arr = textAreaText.value.split("");
+      arr.splice(textAreaText.selectionEnd - 1, 1);
+      textAreaText.value = arr.join("");
+      textAreaText.setSelectionRange(pointer, pointer);
+    }
+  }
+  if (e.target.textContent === "Del") {
+    if (textAreaText.selectionEnd >= 0) {
+      let pointer = textAreaText.selectionEnd;
+      let arr = textAreaText.value.split("");
+      arr.splice(textAreaText.selectionEnd, 1);
+      textAreaText.value = arr.join("");
+      textAreaText.setSelectionRange(pointer, pointer);
+    }
+  }
+  if (e.target.textContent === "Space") {
+    textAreaText.value += " ";
+  }
+  if (e.target.textContent === "Enter") {
+    textAreaText.value += "\n";
+  }
+  if (e.target.textContent === "Tab") {
+    textAreaText.value += "    ";
+  }
+  if (e.target.textContent === "ᐊ") {
+    if (textAreaText.selectionEnd > 0) {
+      textAreaText.selectionEnd -= 1;
+    }
+  }
+  if (e.target.textContent === "ᐅ") {
+    textAreaText.selectionStart += 1;
+  }
+  if (e.target.textContent === "ᐁ") {
+    let arr = textAreaText.value.split("");
+    let pointer = textAreaText.selectionEnd;
+    arr.map((item, index) => {
+      if (item === "\n") {
+        textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
+      }
+    });
+  }
+  if (e.target.textContent === "ᐃ") {
+    let arr = textAreaText.value.split("");
+    let pointer = textAreaText.selectionEnd;
+    arr.map((item, index) => {
+      if (item === "\n") {
+        textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
+        console.log(index + 1);
+        console.log(pointer);
+      }
+    });
   }
 };
+[...allLi].forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("btn_control")) {
+      textAreaText.value += e.target.innerHTML;
+    } else {
+      controlsBtnText(e);
+    }
+    textAreaText.focus();
+  });
+});
 
 // document.addEventListener("keydown", keyDown);
 // document.addEventListener("keyup", keyUp);
