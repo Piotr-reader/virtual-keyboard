@@ -17,21 +17,50 @@ createComponents("ul", "grid_container", keyboardContainer);
 const ulContainer = document.querySelector(".grid_container");
 
 // create alphabet English
-let alphabet_alphabet = en_alphabet;
-let alphabet_num = en_num;
-let alphabet_symb = en_symb;
-let alphabet_num_ext = en_num_ext;
-let alphabet_symb_ext = en_symb_ext;
+let alphabetChange = true;
+let localstorage = localStorage.getItem("alphabetChange");
+
+if (localstorage !== null) {
+  alphabetChange = JSON.parse(localstorage);
+}
+
+let alphabet_alphabet = [];
+let alphabet_num = [];
+let alphabet_symb = [];
+let alphabet_num_ext = [];
+let alphabet_symb_ext = [];
 let alphabet_toUppercase = [];
 let alphabet = [];
-en_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
-alphabet = alphabet_num.concat(alphabet_alphabet).concat(alphabet_num_ext);
-for (let i = 0; i < alphabet.length; i++) {
-  createLi("li", `${alphabet[i]}`, ulContainer);
+if (alphabetChange) {
+  alphabet_alphabet = en_alphabet;
+  alphabet_num = en_num;
+  alphabet_symb = en_symb;
+  alphabet_num_ext = en_num_ext;
+  alphabet_symb_ext = en_symb_ext;
+  en_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
+  alphabet = alphabet_num.concat(alphabet_alphabet).concat(alphabet_num_ext);
+  for (let i = 0; i < alphabet.length; i++) {
+    createLi("li", `${alphabet[i]}`, ulContainer);
+  }
+  for (let i = 0; i < controlBtnArr.length; i++) {
+    createBtnControls("li", "btn_control", `${controlBtnArr[i]}`, ulContainer);
+  }
+} else {
+  alphabet_alphabet = ru_alphabet;
+  alphabet_num = ru_num;
+  alphabet_symb = ru_symb;
+  alphabet_num_ext = ru_num_ext;
+  alphabet_symb_ext = ru_symb_ext;
+  ru_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
+  alphabet = alphabet_num.concat(alphabet_alphabet).concat(alphabet_num_ext);
+  for (let i = 0; i < alphabet.length; i++) {
+    createLi("li", `${alphabet[i]}`, ulContainer);
+  }
+  for (let i = 0; i < controlBtnArr.length; i++) {
+    createBtnControls("li", "btn_control", `${controlBtnArr[i]}`, ulContainer);
+  }
 }
-for (let i = 0; i < controlBtnArr.length; i++) {
-  createBtnControls("li", "btn_control", `${controlBtnArr[i]}`, ulContainer);
-}
+
 let allLi = ulContainer.children;
 [...allLi].forEach((btn) => {
   switch (btn.innerHTML) {
@@ -81,6 +110,9 @@ const btnDelete = document.querySelector(".delete_cl");
 // create alphabet Russian
 const changeLang = () => {
   if (alphabet[0] === "`" || alphabet[0] === "~") {
+    alphabetChange = false;
+    localStorage.clear();
+    localStorage.setItem("alphabetChange", JSON.stringify(alphabetChange));
     alphabet_alphabet = ru_alphabet;
     alphabet_num = ru_num;
     alphabet_symb = ru_symb;
@@ -89,6 +121,9 @@ const changeLang = () => {
     alphabet_toUppercase = [];
     ru_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
   } else {
+    alphabetChange = true;
+    localStorage.clear();
+    localStorage.setItem("alphabetChange", JSON.stringify(alphabetChange));
     alphabet_alphabet = en_alphabet;
     alphabet_num = en_num;
     alphabet_symb = en_symb;
@@ -356,6 +391,26 @@ const keyDown = (e) => {
       if (e.key === "Delete") {
         btnDelete.classList.add("to_upper_case");
       }
+      if (e.key === "ArrowUp") {
+        if (btn.innerHTML === "ᐃ") {
+          btn.classList.add("to_upper_case");
+        }
+      }
+      if (e.key === "ArrowDown") {
+        if (btn.innerHTML === "ᐁ") {
+          btn.classList.add("to_upper_case");
+        }
+      }
+      if (e.key === "ArrowLeft") {
+        if (btn.innerHTML === "ᐊ") {
+          btn.classList.add("to_upper_case");
+        }
+      }
+      if (e.key === "ArrowRight") {
+        if (btn.innerHTML === "ᐅ") {
+          btn.classList.add("to_upper_case");
+        }
+      }
     }
   });
   if (e.code == "ShiftLeft" || e.code == "ShiftRight") {
@@ -377,6 +432,7 @@ const keyDown = (e) => {
     shiftUp(e);
   }
   if (e.code == "ControlLeft") {
+    e.preventDefault();
     btnCtrl.classList.toggle("to_upper_case");
     btnCtrl.classList.toggle("active");
     removeActiveKeyboard();
