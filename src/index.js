@@ -249,25 +249,70 @@ const controlsBtnText = (e) => {
     case "ᐁ":
       {
         let arr = textAreaText.value.split("");
+        let positionN = [];
+        let positionPrev = [];
+        let positionNext = [];
         let pointer = textAreaText.selectionEnd;
         arr.map((item, index) => {
           if (item === "\n") {
-            textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
+            positionN.push(index);
           }
         });
+        for (let i = 0; i < positionN.length; i++) {
+          if (positionN[i] <= pointer) {
+            positionPrev.push(positionN[i]);
+          }
+          if (positionN[i] > pointer) {
+            positionNext.push(positionN[i]);
+          }
+        }
+        positionNext.push(arr.length);
+        if (positionPrev.length === 0) {
+          pointer = pointer + positionNext[0];
+          pointer++;
+          textAreaText.setSelectionRange(pointer, pointer);
+        }
+        if (pointer < positionNext[0]) {
+          if (pointer === positionPrev[0]) {
+            pointer = pointer + positionPrev[0];
+            pointer++;
+            textAreaText.setSelectionRange(pointer, pointer);
+          } else {
+            pointer = pointer - positionPrev[positionPrev.length - 1] + positionNext[0];
+            textAreaText.setSelectionRange(pointer, pointer);
+          }
+        }
       }
       break;
     case "ᐃ":
       {
         let arr = textAreaText.value.split("");
+        let positionN = [];
+        let positionPrev = [];
+        let positionNext = [];
         let pointer = textAreaText.selectionEnd;
         arr.map((item, index) => {
           if (item === "\n") {
-            textAreaText.setSelectionRange(pointer + (index + 1), pointer + (index + 1));
-            console.log(index + 1);
-            console.log(pointer);
+            positionN.push(index);
           }
         });
+        for (let i = 0; i < positionN.length; i++) {
+          if (positionN[i] <= pointer) {
+            positionPrev.push(positionN[i]);
+          }
+          if (positionN[i] > pointer) {
+            positionNext.push(positionN[i]);
+          }
+        }
+        positionNext.push(arr.length);
+        if (positionPrev.length > 1) {
+          pointer = pointer - positionPrev[positionPrev.length - 1] - 1;
+          pointer = positionPrev[positionPrev.length - 2] + pointer + 1;
+          textAreaText.setSelectionRange(pointer, pointer);
+        } else {
+          pointer = pointer - positionPrev[positionPrev.length - 1] - 1;
+          textAreaText.setSelectionRange(pointer, pointer);
+        }
       }
       break;
     default:
