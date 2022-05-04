@@ -59,13 +59,55 @@ const ru_num = ["ё", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "="];
 const ru_symb = ["Ё", "!", '"', "№", ";", "%", ":", "?", "*", "(", ")", "-", "="];
 const ru_num_ext = ["ю", "."];
 const ru_symb_ext = ["Ю", ","];
-
-// let alphabet_alphabet = en_alphabet;
-// let alphabet_num = en_num;
-// let alphabet_symb = en_symb;
-// let alphabet_num_ext = en_num_ext;
-// let alphabet_symb_ext = en_symb_ext;
-
+const dataAttribute = [
+  "Backquote",
+  "Digit1",
+  "Digit2",
+  "Digit3",
+  "Digit4",
+  "Digit5",
+  "Digit6",
+  "Digit7",
+  "Digit8",
+  "Digit9",
+  "Digit0",
+  "NumpadSubtract",
+  "Equal",
+  "KeyQ",
+  "KeyW",
+  "KeyE",
+  "KeyR",
+  "KeyT",
+  "KeyY",
+  "KeyU",
+  "KeyI",
+  "KeyO",
+  "KeyP",
+  "KeyA",
+  "KeyS",
+  "KeyD",
+  "KeyF",
+  "KeyG",
+  "KeyH",
+  "KeyJ",
+  "KeyK",
+  "KeyL",
+  "KeyZ",
+  "KeyX",
+  "KeyC",
+  "KeyV",
+  "KeyB",
+  "KeyN",
+  "KeyM",
+   "BracketLeft",
+  "BracketRight",
+    "Semicolon",
+  "Quote",
+  "Backslash",
+    "NumpadDecimal",
+  "Period",
+  "Slash",
+];
 export default {
   controlBtnArr,
   en_symb,
@@ -78,4 +120,5 @@ export default {
   ru_symb,
   ru_num_ext,
   ru_symb_ext,
+  dataAttribute,
 };

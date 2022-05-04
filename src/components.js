@@ -14,9 +14,10 @@ function createBtnControls(element, className, inner, toContainer) {
   newElement.innerHTML = inner;
   toContainer.append(newElement);
 }
-function createLi(element, inner, toContainer) {
+function createLi(element, inner, toContainer, dataAttribute) {
   const newElement = document.createElement(element);
   newElement.innerHTML = inner;
+  newElement.dataset.name = dataAttribute;
   toContainer.append(newElement);
 }
 

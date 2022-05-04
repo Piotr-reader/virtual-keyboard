@@ -1,7 +1,7 @@
 import data from "./data";
 import components from "./components";
 import "./styles/style.scss";
-const { controlBtnArr, en_symb, en_num_ext, en_alphabet, en_symb_ext, ru_alphabet, en_num, ru_num, ru_symb, ru_num_ext, ru_symb_ext } = data;
+const { controlBtnArr, en_symb, en_num_ext, en_alphabet, en_symb_ext, ru_alphabet, en_num, ru_num, ru_symb, ru_num_ext, ru_symb_ext, dataAttribute } = data;
 const { createWrapper, createComponents, createBtnControls, createLi } = components;
 
 createWrapper("div", "wrapper");
@@ -9,7 +9,7 @@ const wrapperContainer = document.querySelector(".wrapper");
 createComponents("textarea", "text_write", wrapperContainer);
 const textareaContainer = document.querySelector(".text_write");
 textareaContainer.name = "text";
-textareaContainer.rows = "8";
+textareaContainer.rows = "5";
 textareaContainer.placeholder = "Type something here...";
 createComponents("div", "keyboard", wrapperContainer);
 const keyboardContainer = document.querySelector(".keyboard");
@@ -40,7 +40,7 @@ if (alphabetChange) {
   en_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
   alphabet = alphabet_num.concat(alphabet_alphabet).concat(alphabet_num_ext);
   for (let i = 0; i < alphabet.length; i++) {
-    createLi("li", `${alphabet[i]}`, ulContainer);
+    createLi("li", `${alphabet[i]}`, ulContainer, `${dataAttribute[i]}`);
   }
   for (let i = 0; i < controlBtnArr.length; i++) {
     createBtnControls("li", "btn_control", `${controlBtnArr[i]}`, ulContainer);
@@ -54,7 +54,7 @@ if (alphabetChange) {
   ru_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
   alphabet = alphabet_num.concat(alphabet_alphabet).concat(alphabet_num_ext);
   for (let i = 0; i < alphabet.length; i++) {
-    createLi("li", `${alphabet[i]}`, ulContainer);
+    createLi("li", `${alphabet[i]}`, ulContainer, `${dataAttribute[i]}`);
   }
   for (let i = 0; i < controlBtnArr.length; i++) {
     createBtnControls("li", "btn_control", `${controlBtnArr[i]}`, ulContainer);
@@ -382,8 +382,10 @@ const keyDown = (e) => {
   textAreaText.focus();
   [...allLi].forEach((btn) => {
     if (!(e.code == "CapsLock" || e.code == "ControlLeft" || e.code == "AltLeft" || e.code == "AltRight")) {
-      if (e.key === btn.innerHTML) {
+      if (e.code === btn.dataset.name) {
+        e.preventDefault();
         btn.classList.add("to_upper_case");
+        textAreaText.value += btn.innerHTML;
       }
       if (e.key === " ") {
         btnSpace.classList.add("to_upper_case");
@@ -432,18 +434,18 @@ const keyDown = (e) => {
     shiftUp(e);
   }
   if (e.code == "ControlLeft") {
-    e.preventDefault();
     btnCtrl.classList.toggle("to_upper_case");
     btnCtrl.classList.toggle("active");
     removeActiveKeyboard();
+    e.preventDefault();
   }
   if (e.code == "AltLeft") {
-    e.preventDefault();
     btnAltLeft.classList.toggle("to_upper_case");
     btnAltLeft.classList.toggle("active");
     btnAltRight.classList.remove("to_upper_case");
     btnAltRight.classList.remove("active");
     removeActiveKeyboard();
+    e.preventDefault();
   }
   if (e.code == "AltRight") {
     e.preventDefault();
@@ -454,14 +456,34 @@ const keyDown = (e) => {
     removeActiveKeyboard();
   }
   if (e.code == "Tab") {
+    [...allLi].forEach((btn) => {
+      if (btn.innerHTML == "Tab") {
+        btn.classList.add("to_upper_case");
+      }
+    });
     e.preventDefault();
     textAreaText.value += "    ";
+  }
+  if (e.code == "Backspace") {
+    [...allLi].forEach((btn) => {
+      if (btn.innerHTML == "Backspace") {
+        btn.classList.add("to_upper_case");
+      }
+    });
+  }
+  if (e.code == "Enter") {
+    [...allLi].forEach((btn) => {
+      if (btn.innerHTML == "Enter") {
+        btn.classList.add("to_upper_case");
+      }
+    });
   }
 };
 const keyUp = (e) => {
   if (e.code == "ShiftLeft" || e.code == "ShiftRight") {
     btnShiftRight.classList.remove("to_upper_case");
     btnShiftLeft.classList.remove("to_upper_case");
+    e.preventDefault();
     if (btnCapslock.classList.contains("active")) {
       shiftUp(e);
     } else {
