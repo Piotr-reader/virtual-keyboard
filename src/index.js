@@ -1,8 +1,8 @@
 import data from "./data";
 import components from "./components";
 import "./styles/style.scss";
-const { controlBtnArr, en_symb, en_num_ext, en_alphabet, en_symb_ext, ru_alphabet, en_num, ru_num, ru_symb, ru_num_ext, ru_symb_ext, dataAttribute } = data;
-const { createWrapper, createComponents, createBtnControls, createLi } = components;
+const { controlBtnArr, en_symb, en_num_ext, en_alphabet, en_symb_ext, ru_alphabet, en_num, ru_num, ru_symb, ru_num_ext, ru_symb_ext, dataAttribute, innerP } = data;
+const { createWrapper, createComponents, createBtnControls, createLi, createP } = components;
 
 createWrapper("div", "wrapper");
 const wrapperContainer = document.querySelector(".wrapper");
@@ -15,7 +15,7 @@ createComponents("div", "keyboard", wrapperContainer);
 const keyboardContainer = document.querySelector(".keyboard");
 createComponents("ul", "grid_container", keyboardContainer);
 const ulContainer = document.querySelector(".grid_container");
-
+createP("p", innerP, wrapperContainer);
 // create alphabet English
 let alphabetChange = true;
 let localstorage = localStorage.getItem("alphabetChange");
@@ -39,10 +39,10 @@ if (alphabetChange) {
   alphabet_symb_ext = en_symb_ext;
   en_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
   alphabet = alphabet_num.concat(alphabet_alphabet).concat(alphabet_num_ext);
-  for (let i = 0; i < alphabet.length; i++) {
+  for ( let i = 0; i < alphabet.length; i++ ) {
     createLi("li", `${alphabet[i]}`, ulContainer, `${dataAttribute[i]}`);
   }
-  for (let i = 0; i < controlBtnArr.length; i++) {
+  for ( let i = 0; i < controlBtnArr.length; i++ ) {
     createBtnControls("li", "btn_control", `${controlBtnArr[i]}`, ulContainer);
   }
 } else {
@@ -53,7 +53,7 @@ if (alphabetChange) {
   alphabet_symb_ext = ru_symb_ext;
   ru_alphabet.forEach((elem) => alphabet_toUppercase.push(elem.toUpperCase()));
   alphabet = alphabet_num.concat(alphabet_alphabet).concat(alphabet_num_ext);
-  for (let i = 0; i < alphabet.length; i++) {
+  for ( let i = 0; i < alphabet.length; i++ ) {
     createLi("li", `${alphabet[i]}`, ulContainer, `${dataAttribute[i]}`);
   }
   for (let i = 0; i < controlBtnArr.length; i++) {
@@ -259,11 +259,9 @@ const controlsBtnText = (e) => {
     case "Enter":
       let itemEnter = "\n";
       let arrEnter = textAreaText.value.split("");
-      let positionCursorEnter = textAreaText.selectionEnd;
       arrEnter.splice(textAreaText.selectionEnd, 0, itemEnter);
       textAreaText.value = arrEnter.join("");
-      textAreaText.selectionEnd = positionCursorEnter - 10;
-      textAreaText.value += "\n";
+      e.preventDefault();
       break;
     case "Tab":
       let item = "    ";

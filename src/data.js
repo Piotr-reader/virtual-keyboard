@@ -108,6 +108,7 @@ const dataAttribute = [
   "Period",
   "Slash",
 ];
+const innerP = 'Клавиатура создана в операционной системе Windows<br>Для переключения языка комбинация: левыe ctrl + alt'
 export default {
   controlBtnArr,
   en_symb,
@@ -121,4 +122,5 @@ export default {
   ru_num_ext,
   ru_symb_ext,
   dataAttribute,
+  innerP
 };

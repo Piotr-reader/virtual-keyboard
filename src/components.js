@@ -20,5 +20,9 @@ function createLi(element, inner, toContainer, dataAttribute) {
   newElement.dataset.name = dataAttribute;
   toContainer.append(newElement);
 }
-
-export default { createWrapper, createComponents, createBtnControls, createLi };
+function createP(element, inner, toContainer) {
+  const newElement = document.createElement(element);
+  newElement.innerHTML = inner;
+  toContainer.append(newElement);
+}
+export default { createWrapper, createComponents, createBtnControls, createLi, createP };
