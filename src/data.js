@@ -16,12 +16,12 @@ let controlBtnArr = [
   "&#5123",
   "&#5125",
 ];
-let en_alphabet = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
-const en_num = ["`", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "="];
-const en_symb = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "="];
-const en_num_ext = ["[", "]", "\\", ";", "'", ",", ".", "/"];
-const en_symb_ext = ["{", "}", "|", ":", '"', "<", ">", "?"];
-let ru_alphabet = [
+let enAlphabet = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
+const enNum = ["`", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "="];
+const enSymb = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "="];
+const enNumExt = ["[", "]", "\\", ";", "'", ",", ".", "/"];
+const enSymbExt = ["{", "}", "|", ":", '"', "<", ">", "?"];
+let ruAlphabet = [
   "й",
   "ц",
   "у",
@@ -55,10 +55,10 @@ let ru_alphabet = [
   "э",
   "б",
 ];
-const ru_num = ["ё", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "="];
-const ru_symb = ["Ё", "!", '"', "№", ";", "%", ":", "?", "*", "(", ")", "-", "="];
-const ru_num_ext = ["ю", "."];
-const ru_symb_ext = ["Ю", ","];
+const ruNum = ["ё", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "="];
+const ruSymb = ["Ё", "!", '"', "№", ";", "%", ":", "?", "*", "(", ")", "-", "="];
+const ruNumExt = ["ю", "."];
+const ruSymbExt = ["Ю", ","];
 const dataAttribute = [
   "Backquote",
   "Digit1",
@@ -111,16 +111,16 @@ const dataAttribute = [
 const innerP = 'Клавиатура создана в операционной системе Windows<br>Для переключения языка комбинация: левыe ctrl + alt'
 export default {
   controlBtnArr,
-  en_symb,
-  en_num_ext,
-  en_alphabet,
-  en_symb_ext,
-  ru_alphabet,
-  en_num,
-  ru_num,
-  ru_symb,
-  ru_num_ext,
-  ru_symb_ext,
+  enSymb,
+  enNumExt,
+  enAlphabet,
+  enSymbExt,
+  ruAlphabet,
+  enNum,
+  ruNum,
+  ruSymb,
+  ruNumExt,
+  ruSymbExt,
   dataAttribute,
   innerP
 };
